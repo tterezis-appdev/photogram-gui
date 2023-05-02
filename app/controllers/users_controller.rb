@@ -15,4 +15,16 @@ def show
     render ({:template => "user_templates/show.html.erb"})
     
   end
+
+  def create
+    
+    input_user = params.fetch("input_username")
+  
+    a_new_user = User.new
+    a_new_user.username = input_user
+   
+    a_new_user.save
+  
+     redirect_to("/users/" + a_new_user.username)
+    end
 end
