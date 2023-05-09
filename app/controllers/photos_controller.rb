@@ -42,25 +42,25 @@ class PhotosController < ApplicationController
 
   a_new_photo.save
   
-   redirect_to("/photos/" + a_new_photo.to_s)
+   redirect_to("/photos/" + a_new_photo.id.to_s)
   end
 
   def update
 
-  the_id = params.fetch("modify_id")
+  updated_photo = params.fetch("query_image")
+  updated_caption = params.fetch("query_caption")
 
+    photo_id=params.fetch("modify_id")
 
-    matching_users=Photo.where({:id => the_id})
+    matching_photos=Photo.where({:id => photo_id})
 
-    the_user=matching_users.at(0)
+    the_photo=matching_photos.at(0)
 
-    input_image=params.fetch("new_username")
+    the_photo.image=updated_photo
+    the_photo.caption=updated_caption
 
-    the_user.id= user_id
-    the_user.username = input_caption
+    the_photo.save
 
-    the_user.save
-
-    redirect_to("/users/" + the_user.id.to_s)
+    redirect_to("/photos/" + the_photo.id.to_s)
   end
 end
